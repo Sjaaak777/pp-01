@@ -3,9 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn Vercel Project</title>
+    <title>PootjesPlanner - Dé Afsprakenplanner voor Trimsalons</title>
+    <!-- Roboto font voor Material-UI -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!-- React en ReactDOM -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Material-UI -->
+    <script src="https://unpkg.com/@material-ui/core@4.11.3/umd/material-ui.development.js" crossorigin></script>
+    <!-- Babel voor JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welkom bij mijn Vercel project!</h1>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { 
+            AppBar, Toolbar, Typography, Button, Container, Grid, Card, CardContent, 
+            makeStyles, createMuiTheme, ThemeProvider 
+        } = MaterialUI;
+
+        const theme = createMuiTheme({
+            palette: {
+                primary: {
+                    main: '#9370DB', // Zachtere paarse kleur
+                },
+                secondary: {
+                    main: '#E6E6FA',
+                },
+            },
+        });
+
+        const useStyles = makeStyles((theme) => ({
+            root: {
+                flexGrow: 1,
+            },
+            menuButton: {
+                marginRight: theme.spacing(2),
+            },
+            title: {
+                flexGrow: 1,
+                display: 'flex',
+                alignItems: 'center',
+            },
+            icon: {
+                marginRight: theme.spacing(1),
+            },
+            heroContent: {
+                backgroundColor: theme.palette.background.paper,
+                padding: theme.spacing(8, 0, 6),
+            },
+            heroButtons: {
+                marginTop: theme.spacing(4),
+                display: 'flex',
+                justifyContent: 'center', // Centreert de knop horizontaal
+            },
+            cardGrid: {
+                paddingTop: theme.spacing(8),
+                paddingBottom: theme.spacing(8),
+            },
+            card: {
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+            },
+            cardContent: {
+                flexGrow: 1,
+            },
+        }));
+
+        function App() {
+            const classes = useStyles();
+
+            return (
+                <ThemeProvider theme={theme}>
+                    <AppBar position="static">
+                        <Toolbar>
+                            <Typography variant="h6" className={classes.title}>
+                                <i className="material-icons" style={{marginRight: '10px'}}>pets</i>
+                                PootjesPlanner
+                                <i className="material-icons" style={{marginLeft: '10px'}}>event</i>
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <main>
+                        <div className={classes.heroContent}>
+                            <Container maxWidth="sm">
+                                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                                    Welkom bij PootjesPlanner
+                                </Typography>
+                                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                                    Dé Afsprakenplanner voor Trimsalons - Efficiënt plannen, tevreden klanten en meer tijd voor wat echt belangrijk is: de verzorging van huisdieren!
+                                </Typography>
+                                <div className={classes.heroButtons}>
+                                    <Button variant="contained" color="primary" size="large">
+                                        Start Gratis Proefperiode
+                                    </Button>
+                                </div>
+                            </Container>
+                        </div>
+                        <Container className={classes.cardGrid} maxWidth="md">
+                            <Grid container spacing={4}>
+                                {['Eenvoudig Afspraken Plannen', 'Klantenbeheer', 'Automatische Herinneringen', 'Financieel Overzicht'].map((feature) => (
+                                    <Grid item key={feature} xs={12} sm={6} md={3}>
+                                        <Card className={classes.card}>
+                                            <CardContent className={classes.cardContent}>
+                                                <Typography gutterBottom variant="h5" component="h2">
+                                                    {feature}
+                                                </Typography>
+                                                <Typography>
+                                                    Dit is een korte beschrijving van de {feature.toLowerCase()} functie.
+                                                </Typography>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Container>
+                    </main>
+                </ThemeProvider>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
